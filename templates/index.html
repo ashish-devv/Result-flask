@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="shortcut icon" type="image/png" href="/static/f.png">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Result-Ashish</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .bigbox
+      {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e,#ff4b1f, #ff9068, #16bffd, #cb3066,#43e97b,#84fab0,#330867,#fed6e3);
+    background-size: 400% 400%;
+    animation: gradient 4s ease infinite;
+      }
+      body{
+        background: linear-gradient(-45deg, #ee7752, #e73c7e,#ff4b1f, #ff9068, #16bffd, #cb3066,#4ca1af, #c4e0e5);
+    background-size: 400% 400%;
+    animation: gradient 6s ease infinite;
+        
+      }
+      @keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <div class="jumbotron bg-dark bigbox">
+        <h1 class="display-4"><img src="/static/i.png" style="border-radius:50%;border:5px black solid;width:200px;height: 200px;"></h1>
+      </div>
+      <div class="card text-center bg-dark text-white">
+        <div class="card-body bg-dark">
+          <h5 class="card-title">Enter your Registration no. 👇 
+            <br>Best Of Luck🤞✌</h5>
+          <div class="card-body bg-dark">
+            <form class="form-control" style="margin:2px;padding: 2px;" method="POST" action="/result">
+            <input type="number" name="regno" placeholder="Registration No." required autofocus style="text-align: center;" class="form-control" autocomplete="off">
+          </div>
+          <button type="Submit" class="btn btn-success btn-lg btn-block">Search</button>
+        </div>
+        </form>
+        <div class="card-footer text-muted text-white">
+          Made With ❤ By <a href="#">Ashish</a><br>
+          To Follow Me Click Here 👉:
+          &nbsp;&nbsp;
+          <a href="https://www.instagram.com/ashish.exe/"><img src="/static/instagram.svg"></a>
+          &nbsp;&nbsp;
+          <a href="https://www.facebook.com/ashishkrfab"><img src="/static/facebook.svg"></a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/ashish-devv"><img src="/static/github.svg"></a>
+          &nbsp;&nbsp;
+          <a href="https://www.linkedin.com/in/ashishkrshu/"><img src="/static/linkedin.svg"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
