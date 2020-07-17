@@ -6,6 +6,17 @@ app = Flask(__name__)
 
 
 
+def viewupdate(r):
+	conn=sqlite3.connect('view.db')
+	c=conn.cursor()
+	st='SELECT "reg","view" FROM view WHERE "reg"='+r+' LIMIT 1;'
+	c.execute(st)
+	r=convert(c.fetchall())
+	print("---------------------------------------------------")
+	print("---------------------------------------------------")
+	print("---------------------------------------------------")
+	print(r)
+
 
 def userinfo(a):
 	k=[]
@@ -102,10 +113,13 @@ def result():
 			cgpa=gpa(res2)
 			#print(type(res))
 			c.close()
+			viewupdate(rno)
 			return render_template('result.html',res=res2,cgpa=cgpa,inf=inf)
+		else:
+			redirect(url_for('index'))
 
 	return redirect('/')	
    
 
 if __name__ == '__main__':
-   app.run(debug=False,host="0.0.0.0",port='5000')
+   app.run(debug=True,host="0.0.0.0",port='5000')
