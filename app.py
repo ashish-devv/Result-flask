@@ -1,28 +1,31 @@
 #app.py
-from flask import Flask,render_template,request,redirect
-from flask_mysqldb import MySQL
+from flask import Flask,render_template,request,redirect,url_for
+import sqlite3
+
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = "localhost"
-app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = ""
-app.config['MYSQL_DB'] = "result"
 
-mysql=MySQL(app)
+
 
 def userinfo(a):
 	k=[]
-	cur=mysql.connection.cursor()
-	statement="SELECT `REGD. NO`,`NAME OF THE STUDENT`,`Sem` FROM `sheet1` WHERE `REGD. NO`= "+a
-	result=cur.execute(statement)
-	if result > 0:
-		info=cur.fetchone()
-		k=list(info)
+	#cur=mysql.connection.cursor()
+	conn=sqlite3.connect('a.db')
+	c=conn.cursor()
+	statement='SELECT "REGD.NO","NAMEOFTHESTUDENT","Sem" FROM "sheet1" WHERE "REGD.NO" ='+a+' LIMIT 1'
+	print(statement)
+	c.execute(statement)
+	result=c.fetchone()
+	print(result)
+	if result==None:
+		return 1
+	if len(result) > 0:
+		c.close()
+		k=list(result)
 		k[0]=" Registration no : "+str(k[0])
 		k[1]=" Name : "+k[1]
 		k[2]=" Semester : "+k[2]
 		info = k
-		print
 		return info
 
 
@@ -80,19 +83,29 @@ def result():
 		rno=request.form['regno']
 		regno=str(rno)
 		inf=userinfo(rno)
+		if(inf==1):
+			redirect(url_for('index'))
 		#print(regno)
-		cur=mysql.connection.cursor()
-		statement="SELECT `SUB.CODE`,`SUBJECT NAME`,`Grade` FROM `sheet1` WHERE `REGD. NO`= "+regno
-		result=cur.execute(statement)
-		if result > 0:
-			res=cur.fetchall()
-			res2=convert(res)
+		#cur=mysql.connection.cursor()
+		conn=sqlite3.connect('a.db')
+		c=conn.cursor()
+		statement='SELECT "SUB.CODE","SUBJECTNAME","Grade" FROM "sheet1" WHERE "REGD.NO"='+regno
+		print(statement)
+		c.execute(statement)
+		result=c.fetchall()
+		print(result)
+		if len(result) > 0:
+			res=c.fetchall()
+			print(res)
+			res2=convert(result)
+			print(res2)
 			cgpa=gpa(res2)
 			#print(type(res))
-			return render_template('result.html',res=res,cgpa=cgpa,inf=inf)
+			c.close()
+			return render_template('result.html',res=res2,cgpa=cgpa,inf=inf)
 
 	return redirect('/')	
    
 
 if __name__ == '__main__':
-   app.run(debug=True,host="0.0.0.0",port='5000')
+   app.run(debug=False,host="0.0.0.0",port='5000')
