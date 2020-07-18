@@ -71,6 +71,9 @@ def gpa(a):
 		elif(l[2]=="D" or l[2]=="5"):
 			l[2]=5
 			lis.append(l[2])
+		elif(l[2]=="S" or l[2]=="0"):
+			l[2]=0
+			lis.append(l[2])
 		elif(l[2]=="F" or l[2]=="0"):
 			l[2]=0
 			lis.append(l[2])
@@ -82,6 +85,7 @@ def gpa(a):
 		sum=sum+i
 	cgpa=sum/len(lis)
 	return cgpa
+		
 		
 
 @app.route('/')
@@ -122,4 +126,4 @@ def result():
    
 
 if __name__ == '__main__':
-   app.run(debug=True,host="0.0.0.0",port='5000')
+   app.run(debug=False,host="0.0.0.0",port='5000')
