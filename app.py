@@ -74,6 +74,9 @@ def gpa(a):
 		elif(l[2]=="S" or l[2]=="0"):
 			l[2]=0
 			lis.append(l[2])
+		elif(l[2]=="M" or l[2]=="0"):
+			l[2]=0
+			lis.append(l[2])
 		elif(l[2]=="F" or l[2]=="0"):
 			l[2]=0
 			lis.append(l[2])
