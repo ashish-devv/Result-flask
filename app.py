@@ -1,9 +1,21 @@
 #app.py
+import os
 from flask import Flask,render_template,request,redirect,url_for
 import sqlite3
+import pandas as pd
+from werkzeug.utils import secure_filename
+
+
 
 app = Flask(__name__)
+UPLOAD_FOLDER = '\\uploads'
+ALLOWED_EXTENSIONS = {'csv'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def viewupdate(r):
@@ -126,7 +138,34 @@ def result():
 			redirect(url_for('index'))
 
 	return redirect('/')	
-   
+
+@app.route("/admin")
+def adminpage():
+	return render_template("admin.html")
+
+
+@app.route('/uploadadmin', methods=['GET', 'POST'])
+def upload_file():
+	if request.method == 'POST':
+		if 'file' not in request.files:
+			flash('No file part')
+			return redirect(request.url)
+		file = request.files['file']
+		if file.filename == '':
+			flash('No selected file')
+			return redirect(request.url)
+		if file and allowed_file(file.filename):
+			filename = secure_filename(file.filename)
+			print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			file.save(filename)
+			conn = sqlite3.connect('a.db')
+			c = conn.cursor()
+			c.execute(''' DELETE FROM sheet1 WHERE 1 ''')
+			csvfile=pd.read_csv(filename)
+			csvfile.to_sql("sheet1", conn, if_exists='append', index = False)
+			return redirect("/admin?code=Uploaded Successfully")
+	return "Fail"
+
 
 if __name__ == '__main__':
-   app.run(debug=False,host="0.0.0.0",port='5000')
+   app.run(debug=True,host="0.0.0.0",port='5000')
