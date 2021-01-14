@@ -132,7 +132,7 @@ def result():
 			cgpa=gpa(res2)
 			#print(type(res))
 			c.close()
-			viewupdate(rno)
+			#viewupdate(rno)
 			return render_template('result.html',res=res2,cgpa=cgpa,inf=inf)
 		else:
 			redirect(url_for('index'))
