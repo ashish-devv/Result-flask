@@ -27,6 +27,7 @@
     <title>Result!</title>
     <style>
         body {
+            font-family: 'Poppins';
             background: linear-gradient(270deg, #fbaf00, #ffd639, #ffa3af, #007cbe, #00af54);
             background-size: 1000% 1000%;
 
@@ -92,9 +93,9 @@
                 <div class="jumbotron  border border-dark">
                     <h1 class="display-4 text-center ">Result! 📄</h1>
                     <hr>
-                    <ul class="list-group list-group-horizontal-md ">
+                    <ul class="list-group  border border-dark">
                         {% for n in inf %}
-                        <li class="list-group-item list-group-item-success">{{n}}</li>
+                        <li class="list-group-item list-group-item-light border border-dark"> <b>{{n}}</b></li>
                         {% endfor %}
                     </ul>
                 
@@ -113,7 +114,7 @@
                         <tbody>
                 
                             {% for user in res %}
-                            <tr>
+                            <tr class="border border-dark">
                                 <td>{{user[0]}}</td>
                                 <td class="text-center" style="font-weight: bold;">{{user[1]}}</td>
                                 <td style="font-weight: bold;" class="text-center">{{user[2]}}</td>
@@ -144,6 +145,11 @@
                                     title="Web Counter" aalt="counter free" border="0">
                             </a>
                         </p>
+                        <div class="alert alert-danger" role="alert">
+                            <b>If you find the Result Buggy 😢 ! Please Check Your Result In The Mail to Confirm !✔👌📧</b>
+                            <hr>
+                            Your Cgpa Might Not Be Calculated Properly.
+                        </div>
                     </div>
                 </div>
 
