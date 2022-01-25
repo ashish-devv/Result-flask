@@ -36,10 +36,10 @@ def userinfo(a):
 	conn=sqlite3.connect('a.db')
 	c=conn.cursor()
 	statement='SELECT "REGD.NO","NAMEOFTHESTUDENT","Sem" FROM "sheet1" WHERE "REGD.NO" ='+a+' LIMIT 1'
-	print(statement)
+	#print(statement)
 	c.execute(statement)
 	result=c.fetchone()
-	print(result)
+	#print(result)
 	if result==None:
 		return 1
 	if len(result) > 0:
@@ -64,6 +64,7 @@ def convert(a):
 
 def gpa(a):
 	lis=[]
+	credit=[]
 	for l in a:
 		if(l[2]=="O" or l[2]=="10"):
 			l[2]=10
@@ -94,11 +95,28 @@ def gpa(a):
 			lis.append(l[2])
 		else:
 			lis.append(float(l[2]))
+	
+	for cr in a:
+		
+		creditrow=cr[3].split("+")
+		
+		for i in range(0, len(creditrow)):
+			creditrow[i] = int(creditrow[i])
+		print(sum(creditrow))
+		credit.append(sum(creditrow))
+	
+	print(credit)
+	print(lis)
+	summ=0
+	for i in range(0,len(credit)):
+		summ=summ+(credit[i]*lis[i])
+	print(summ)
+	cgpa=summ/sum(credit)
 
-	sum=0
-	for i in lis:
-		sum=sum+i
-	cgpa=sum/len(lis)
+	# summ=0
+	# for i in lis:
+	# 	summ=summ+i
+	# cgpa=summ/len(lis)
 	return cgpa
 		
 		
@@ -119,14 +137,16 @@ def result():
 		#cur=mysql.connection.cursor()
 		conn=sqlite3.connect('a.db')
 		c=conn.cursor()
-		statement='SELECT "SUB.CODE","SUBJECTNAME","Grade" FROM "sheet1" WHERE "REGD.NO"='+regno
+		statement='SELECT "SUB.CODE","SUBJECTNAME","Grade","Credit" FROM "sheet1" WHERE "REGD.NO"='+regno
 		print(statement)
 		c.execute(statement)
 		result=c.fetchall()
+		print("##############################################################")
 		print(result)
 		if len(result) > 0:
-			res=c.fetchall()
-			print(res)
+			# res=c.fetchall()
+			# print("##############################################################")
+			# print(res)
 			res2=convert(result)
 			print(res2)
 			cgpa=gpa(res2)
