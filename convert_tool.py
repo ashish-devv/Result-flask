@@ -1,8 +1,12 @@
+from time import sleep
 import pandas as pd
 import os
 import sqlite3
+import subprocess
+# from colorama import Fore, Back, Style
 
 def welcome_message():
+
     print("""
 __________                    .__   __     ____ ___        .__                    .___ ___________           .__   
 \______   \ ____   ________ __|  |_/  |_  |    |   \______ |  |   _________     __| _/ \__    ___/___   ____ |  |  
@@ -50,6 +54,7 @@ def printinstruction():
     3. Read All files in the Folder and Convert them to SQLite Database
     4 . Insert a Single File to SQLite Database
     5. Exit
+    6. Save Changes in Git
     Press 'ctrl + c' to exit....
     """)
 
@@ -67,11 +72,22 @@ def insert_to_sqlite(filename):
     df = pd.read_excel("./results/" + filename, names=["SlNo.", "REGD.NO", "NAMEOFTHESTUDENT", "Sem", "SUB.CODE", "SUBJECTNAME", "Type", "Credit", "Grade"])
     df.to_sql('sheet1', con=sqlite3.connect('a.db'), if_exists='append', index=False)
         
+def saveChangesInGit():
+    print("Saving Changes in Git")
+    subprocess.call(["git", "add", "."])
+    subprocess.call(["git", "commit", "-m", "\"Automatic Commit\""])
+    subprocess.call(["git", "push"])
+    print("Changes are saved in Git... and pushed to remote repository")
 
 
 if __name__ == '__main__':
     try:
+        print(
+            "\n Starting the Application \n")
+        # sleep
+        sleep(3)
         os.system('cls' if os.name == 'nt' else 'clear')
+        
         while(True):
             welcome_message()
             printinstruction()
@@ -100,6 +116,8 @@ if __name__ == '__main__':
                 os.system('cls' if os.name == 'nt' else 'clear')
                 exitmessage()
                 break
+            elif(choice == 6):
+                saveChangesInGit()
             else:
                 print("Invalid Choice")
     except KeyboardInterrupt:
