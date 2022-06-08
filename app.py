@@ -4,6 +4,11 @@ from flask import Flask,render_template,request,redirect,url_for
 import sqlite3
 import pandas as pd
 from werkzeug.utils import secure_filename
+import telebot
+
+
+API_KEY = os.environ['API_KEY']
+bot = telebot.TeleBot(API_KEY)
 
 
 
@@ -185,6 +190,84 @@ def upload_file():
 			csvfile.to_sql("sheet1", conn, if_exists='append', index = False)
 			return redirect("/admin?code=Uploaded Successfully")
 	return "Fail"
+
+def mes(res2,cgpa,inf):
+    message=""
+    for i in inf:
+        message+=i
+        message+='\n'
+    for i in res2:
+        for j in i:
+            message=message+str(j)+"|"
+        message+="\n"
+    message+="CGPA:👉"+str(cgpa)
+    return message
+
+@bot.message_handler(commands=['start'])
+def send_info(message):
+   text = (
+   "<b>Welcome to the Cutm Result Bot🤖!</b>\n"
+   "Say Your Registration No And Get Reply You Result In flash ⚡! \n"
+   "<b> Developed by <a href='https://github.com/ashish-devv'>Ashish</a> </b>"
+   )
+   bot.send_message(message.chat.id, text, parse_mode='HTML')
+
+@bot.message_handler(commands=['Greet'])
+def greet(message):
+  bot.reply_to(message, "Hey! Hows it going?")
+
+def rollnocheck(roll):
+    if(roll.text.isdigit()):
+        if(len(roll.text)==12):
+            return True    
+    return False
+
+@bot.message_handler(func=rollnocheck)
+def result(message):
+    # print(message)
+    rno=message.text
+    regno=str(rno)
+    inf=userinfo(rno)
+    if(inf==1):
+        bot.reply_to(message, " ❌❌❌ Not Found For This Roll no ❌❌❌")
+    conn=sqlite3.connect('a.db')
+    c=conn.cursor()
+    statement='SELECT "SUB.CODE","SUBJECTNAME","Grade" FROM "sheet1" WHERE "REGD.NO"='+regno
+    print(statement)
+    c.execute(statement)
+    result=c.fetchall()
+    #print(result)
+    if len(result) > 0:
+        res=c.fetchall()
+        #print(res)
+        res2=convert(result)
+        #print(res2)
+        cgpa=gpa(res2)
+        c.close()
+        # return render_template('result.html',res=res2,cgpa=cgpa,inf=inf)
+        msg=mes(res2,cgpa,inf)
+        # print(msg)
+        # print(res2)
+        # print(cgpa)
+        # print(inf)
+        bot.reply_to(message, msg)
+    else:
+        bot.reply_to(message, " ❌❌❌ Not Found For This Roll no ❌❌❌")
+
+
+#bot.polling()
+
+# SERVER SIDE 
+@app.route('/bot/' + API_KEY, methods=['POST'])
+def getMessage():
+   bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+   return "!", 200
+@app.route("/bot")
+def webhook():
+   bot.remove_webhook()
+   bot.set_webhook(url='http://resultcutm.herokuapp.com/bot/' + API_KEY)
+   return "!", 200
+
 
 
 if __name__ == '__main__':
