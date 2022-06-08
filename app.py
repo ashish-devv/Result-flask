@@ -249,10 +249,10 @@ def result(message):
         # print(res2)
         cgpa = gpa(res2)
         c.close()
-        print(res2, cgpa, inf)
+        # print(res2, cgpa, inf)
         # return render_template('result.html',res=res2,cgpa=cgpa,inf=inf)
         msg = mes(res2, cgpa, inf)
-        print(res2, cgpa, inf)
+        # print(res2, cgpa, inf)
         bot.reply_to(message, msg)
     else:
         bot.reply_to(message, " ❌❌❌ Not Found For This Roll no ❌❌❌")
