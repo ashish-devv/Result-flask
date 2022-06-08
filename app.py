@@ -265,7 +265,7 @@ def getMessage():
 @app.route("/bot")
 def webhook():
    bot.remove_webhook()
-   bot.set_webhook(url='http://resultcutm.herokuapp.com/bot/' + API_KEY)
+   bot.set_webhook(url='https://resultcutm.herokuapp.com/bot/' + API_KEY)
    return "!", 200
 
 
