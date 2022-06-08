@@ -237,7 +237,7 @@ def result(message):
         bot.reply_to(message, " ❌❌❌ Not Found For This Roll no ❌❌❌")
     conn = sqlite3.connect('a.db')
     c = conn.cursor()
-    statement = 'SELECT "SUB.CODE","SUBJECTNAME","Grade" FROM "sheet1" WHERE "REGD.NO"='+regno
+    statement = 'SELECT "SUB.CODE","SUBJECTNAME","Grade","Credit" FROM "sheet1" WHERE "REGD.NO"='+regno
     print(statement)
     c.execute(statement)
     result = c.fetchall()
@@ -249,9 +249,10 @@ def result(message):
         # print(res2)
         cgpa = gpa(res2)
         c.close()
+        print(res2, cgpa, inf)
         # return render_template('result.html',res=res2,cgpa=cgpa,inf=inf)
         msg = mes(res2, cgpa, inf)
-        print(msg)
+        print(res2, cgpa, inf)
         bot.reply_to(message, msg)
     else:
         bot.reply_to(message, " ❌❌❌ Not Found For This Roll no ❌❌❌")
