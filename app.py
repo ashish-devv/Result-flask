@@ -241,7 +241,7 @@ def result(message):
     print(statement)
     c.execute(statement)
     result = c.fetchall()
-    # print(result)
+    print(result)
     if len(result) > 0:
         res = c.fetchall()
         # print(res)
