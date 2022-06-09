@@ -94,12 +94,13 @@ def saveChangesInGit():
 
 if __name__ == '__main__':
     try:
-        if(sys.argv[1] == "run"):
-            print("\n Starting the Application \n")
-            welcome_message()
-            createorempty()
-            filelist = listallresultfiles()
-            readallfiles(filelist)
+        if(len(sys.argv) > 1):
+            if(sys.argv[1] == "run"):
+                print("\n Starting the Application \n")
+                welcome_message()
+                createorempty()
+                filelist = listallresultfiles()
+                readallfiles(filelist)
         else:
             print(
                 "\n Starting the Application \n")
