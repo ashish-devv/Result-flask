@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
+    branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,12 +24,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.7' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-      
+          python-version: "3.7" # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
+
       - name: Check Python Version
         run: python --version
-        
+
       - name: Install Requirements
         run: pip install -r requirements.txt
 
@@ -40,9 +40,9 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "50518651+ashish-devv@users.noreply.github.com"
+          git config --global user.name "ashish-devv"
+          git config --global user.email "akashish908@gmail.com"
 
           git add -A
-          git commit -m "Result Update"
+          git commit -m "Result Update [ Automated Commit ]"
           git push
