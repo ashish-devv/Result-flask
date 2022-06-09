@@ -42,6 +42,8 @@ jobs:
         run: |
           git config --global user.name "ashish-devv"
           git config --global user.email "akashish908@gmail.com"
+          git pull origin final
+          git checkout final
 
           git add -A
           git commit -m "Result Update [ Automated Commit ]"
