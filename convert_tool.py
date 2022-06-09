@@ -100,7 +100,6 @@ if __name__ == '__main__':
             createorempty()
             filelist = listallresultfiles()
             readallfiles(filelist)
-            saveChangesInGit()
         else:
             print(
                 "\n Starting the Application \n")
