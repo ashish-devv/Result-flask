@@ -129,12 +129,14 @@
               <h5 class="card-title">Registration No Here 👇</h5>
               <form action="/result" method="POST">
                 <p class="card-text">
-                  <input
-                    type="number"
+                   <input
+                    type="text"
                     name="regno"
                     id=""
                     class="form-control text-center border border-dark"
                     placeholder="Enter Your Registration no Here.✔"
+                    ondrop="return false;" onpaste="return false;"
+                    onkeypress="return event.charCode>=48 && event.charCode<=57"
                     required
                   />
                 </p>
